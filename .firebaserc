@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "bookshelf-677c2": {
+      "hosting": {
+        "bookshelf_v1_leo": [
+          "bookshelf-677c2"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "bookshelf-677c2"
+  }
+}
