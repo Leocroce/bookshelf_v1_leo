@@ -1,8 +1,8 @@
 <mat-grid-list cols="1" [rowHeight]="'100px'" [gutterSize]="'1px'">
-  <mat-grid-tile [colspan]="1" [rowspan]="1">Tela de Login</mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="1">Cadastro no Bookshelf</mat-grid-tile>
   <mat-card>
     <img mat-card-image src="../../assets/imagens/cover2.png" alt="Cover do Cadastro de Usuários"/>
-    <form [formGroup]="formularioCadastro" (ngSubmit)="enviaCadastro">
+    <form [formGroup]="formularioCadastro" (ngSubmit)="enviaCadastro()">
       <mat-form-field>
         <input matInput placeholder="Entre com seu nome" formControlName="nome"/>
         <mat-error *ngIf="nome?.errors?.['required']">
