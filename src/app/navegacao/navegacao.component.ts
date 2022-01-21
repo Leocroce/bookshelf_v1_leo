@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AppLoginComponent } from './../app-login/app-login.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NavegacaoService } from './../servicosInterface/navegacao.service';
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { catchError, Observable, of } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { AutenticacaoFirebaseService } from '../servicosInterface/autenticacao-firebase.service';
 
 @Component({
   selector: 'app-navegacao',
@@ -13,6 +15,7 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./navegacao.component.scss']
 })
 export class NavegacaoComponent {
+  usuario$ = this.authFirebaseService.usuarioLogado$;
   //Itens do menu principal
   tituloNav = 'Bookshelf v1';
   //Itens de icones e imagens de navegação
@@ -31,7 +34,9 @@ export class NavegacaoComponent {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private navegadorService: NavegacaoService,
-    private telaLogin: MatDialog
+    private telaLogin: MatDialog,
+    private authFirebaseService: AutenticacaoFirebaseService,
+    private rotas: Router,
     ) {
       this.itensMenu$ = navegadorService.listagemMenu().pipe(
         catchError(error => {
@@ -46,4 +51,9 @@ export class NavegacaoComponent {
       })
     }
 
+    sairUsuario() {
+      this.authFirebaseService.sairLogin().subscribe(() => {
+        this.rotas.navigate([''])
+      });
+    }
 }

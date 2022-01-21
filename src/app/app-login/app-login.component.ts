@@ -2,6 +2,8 @@ import { AutenticacaoFirebaseService } from './../servicosInterface/autenticacao
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HotToastService } from '@ngneat/hot-toast';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-app-login',
@@ -14,10 +16,13 @@ export class AppLoginComponent {
     senha: new FormControl('', Validators.required)
   });
 
+  hasUnitNumber = false;
 
   constructor(
     private loginBuilder: FormBuilder,
     private authFirebaseService: AutenticacaoFirebaseService,
+    private toast: HotToastService,
+    private rotas: Router,
     @Inject(MAT_DIALOG_DATA) public conteudo: string
     ) {
 
@@ -31,6 +36,22 @@ export class AppLoginComponent {
       return this.formularioLogin.get('senha')
     }
 
+    loginFirebase() {
+      if(!this.formularioLogin.valid) {
+        return;
+      }
+
+      const {email, senha} =this.formularioLogin.value;
+      this.authFirebaseService.loginUsuario(email, senha).pipe(
+        this.toast.observe({
+          success: 'Login válido, obrigado',
+          loading: 'Redirecionando..',
+          error: 'Algo deu errado, confira as informações'
+        })
+      ).subscribe(() => {
+        this.rotas.navigate(['/cdd'])
+      })
+    }
   onSubmit() {
   }
 }
