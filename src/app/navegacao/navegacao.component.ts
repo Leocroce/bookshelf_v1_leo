@@ -17,7 +17,7 @@ import { AutenticacaoFirebaseService } from '../servicosInterface/autenticacao-f
 export class NavegacaoComponent {
   usuario$ = this.authFirebaseService.usuarioLogado$;
   //Itens do menu principal
-  tituloNav = 'Bookshelf v1';
+  logoMenu = '../../assets/imagens/logoBS4.png';
   //Itens de icones e imagens de navegação
   iconeGeral = '../../assets/imagens/ShelfBook.png'
   lIcone = 80;

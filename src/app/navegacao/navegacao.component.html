@@ -3,7 +3,7 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>{{tituloNav}}</mat-toolbar>
+      <img mat-card-image [src]="logoMenu" alt="Logo Alto do Menu"/>
     <mat-nav-list *ngFor="let itemMenu of itensMenu$ | async; index as i ">
       <a *ngIf="itemMenu.hab === true" mat-list-item [href]="itemMenu.linkMenu">{{itemMenu.labelMenu}}</a>
     </mat-nav-list>
